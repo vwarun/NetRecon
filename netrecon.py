@@ -210,7 +210,7 @@ class CyberToolkit(ctk.CTk):
         self.lbl_recon_status.configure(text="Status: SCANNING", text_color="#e74c3c")
         
         self.clear_ui_table()
-        self.reset_summary_card_view()
+        self.clear_summary_card_values()
         
         self.open_ports_list = []
         self.ui_row_references = {}
@@ -458,19 +458,38 @@ class CyberToolkit(ctk.CTk):
         self.lbl_recon_progress.configure(text=f"Progress: {current/total*100:.1f}% ({current}/{total})")
 
     def reset_summary_card_view(self):
-        for w in self.summary_panel.winfo_children(): w.destroy()
-        ctk.CTkLabel(self.summary_panel, text="Host Details", font=("Arial", 13, "bold"), text_color="#3498db").pack(anchor="w", pady=(15, 10), padx=15)
-        ctk.CTkLabel(self.summary_panel, text="No metadata compiled.", font=("Arial", 12), text_color="gray", justify="left").pack(fill="x", padx=15, pady=5)
+        for w in self.summary_panel.winfo_children(): 
+            w.destroy()
+            
+        ctk.CTkLabel(self.summary_panel, text="Host Details", font=("Arial", 13, "bold"), text_color="#3498db").pack(anchor="w", pady=(15, 12), padx=15)
+        
+        self.summary_metrics = {}
+        metrics_list = ["Target", "State", "Open Ports", "OS Guess", "Duration"]
+        
+        for field in metrics_list:
+            m_frame = ctk.CTkFrame(self.summary_panel, fg_color="transparent", height=28)
+            m_frame.pack(fill="x", padx=15, pady=3)
+            m_frame.pack_propagate(False) 
+            
+            ctk.CTkLabel(m_frame, text=f"{field}:", font=("Arial", 11, "bold"), text_color="gray").pack(side="left")
+            
+            val_lbl = ctk.CTkLabel(m_frame, text="-", font=("Consolas", 11), text_color="white", anchor="w")
+            val_lbl.pack(side="right", fill="x")
+            
+            self.summary_metrics[field] = val_lbl
+
+    def clear_summary_card_values(self):
+        if hasattr(self, 'summary_metrics'):
+            for field in self.summary_metrics:
+                self.summary_metrics[field].configure(text="-")
 
     def print_populated_summary_card(self, target, open_ports, os_guess, duration):
-        for w in self.summary_panel.winfo_children(): w.destroy()
-        ctk.CTkLabel(self.summary_panel, text="Host Details", font=("Arial", 13, "bold"), text_color="#3498db").pack(pady=(15, 12), padx=15, anchor="w")
-        metrics = [("Target", target), ("State", "Completed"), ("Open Ports", str(open_ports)), ("OS Guess", os_guess), ("Duration", duration)]
-        for title, value in metrics:
-            m_frame = ctk.CTkFrame(self.summary_panel, fg_color="transparent")
-            m_frame.pack(fill="x", padx=15, pady=3)
-            ctk.CTkLabel(m_frame, text=f"{title}:", font=("Arial", 11, "bold"), text_color="gray").pack(side="left")
-            ctk.CTkLabel(m_frame, text=value, font=("Consolas", 11), text_color="white", wraplength=160, justify="left").pack(side="right")
+        if hasattr(self, 'summary_metrics'):
+            self.summary_metrics["Target"].configure(text=str(target))
+            self.summary_metrics["State"].configure(text="Completed")
+            self.summary_metrics["Open Ports"].configure(text=str(open_ports))
+            self.summary_metrics["OS Guess"].configure(text=str(os_guess))
+            self.summary_metrics["Duration"].configure(text=str(duration))
 
     def fingerprint_target_os(self, collected_banners):
         combined = " ".join(collected_banners).lower()
