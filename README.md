@@ -6,6 +6,24 @@ A Python-based Network Reconnaissance Toolkit developed by Varun Wilfred.
 
 Python-based network reconnaissance toolkit featuring port scanning, banner grabbing, service detection, DNS lookup, SHA-256 hash generation, and file integrity verification.
 
+## Screenshots
+
+### Main Interface
+
+![Main Interface](screenshots/main_interface.png)
+
+### Port Scan Results
+
+![Port Scan Results](screenshots/port_scan.png)
+
+### DNS Lookup
+
+![DNS Lookup](screenshots/dns_lookup.png)
+
+### Hash Generator
+
+![Hash Generator](screenshots/hash_generator.png)
+
 ## Features
 
 * TCP Port Scanning
@@ -41,5 +59,4 @@ Varun Wilfred
 
 This project is intended for educational and authorized security assessment purposes only.
 
-
-                                                                          @WakasaRyujiro
+                                                                    @WakasaRyujiro
