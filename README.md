@@ -12,10 +12,6 @@ Python-based network reconnaissance toolkit featuring port scanning, banner grab
 
 ![Main Interface](screenshots/main_interface.png)
 
-### Port Scan Results
-
-![Port Scan Results](screenshots/port_scan.png)
-
 ### DNS Lookup
 
 ![DNS Lookup](screenshots/dns_lookup.png)
