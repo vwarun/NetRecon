@@ -75,7 +75,7 @@ class CyberToolkit(ctk.CTk):
             btn.pack(fill="x", padx=10, pady=2)
             self.nav_buttons[view_id] = btn
 
-        lbl_credits = ctk.CTkLabel(self.sidebar, text="Engine: v1.2.0\nAuth: @WakasaRyujiro", font=("Consolas", 10), text_color="gray", justify="left")
+        lbl_credits = ctk.CTkLabel(self.sidebar, text="Engine: v1.2.0\nAuth: @wakaa", font=("Consolas", 10), text_color="gray", justify="left")
         lbl_credits.pack(side="bottom", pady=15, padx=20, anchor="w")
 
     def build_main_container(self):
